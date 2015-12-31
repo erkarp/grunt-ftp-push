@@ -116,25 +116,16 @@ module.exports = function (grunt) {
   };
 
   grunt.registerMultiTask('ftp_push', 'Transfer files using FTP.', function() {
-    var errorlog = function(files) {
-      grunt.log.writeln('this.files:', typeof files);
-      grunt.log.writeln(JSON.stringify(files, null, 4));
-    };
 
-    //if - cli arg 'src' exists, also check cwd and
-    //this.files = call helper function to reset this.files
-    errorlog(this.files);
 
+    // If cli arg 'src' exists, also check cwd and
+    // Set this.files equal to new obj from utls.srcHandle()
     if (grunt.option('src')) {
       var src = grunt.option('src'),
           cwdArg = grunt.option('cwd');
 
-      var cwd = cwdArg === 'orig' ? this.files[0].orig.cwd : cwdArg || '.';
-
-      this.files = utils.srcHandle(src, cwd);
+      this.files = utils.srcHandle(src, cwd ? cwd : this.files[0].orig.cwd);
     }
-    errorlog(this.files);
-
 
 
 
