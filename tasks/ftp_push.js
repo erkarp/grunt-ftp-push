@@ -116,6 +116,24 @@ module.exports = function (grunt) {
   };
 
   grunt.registerMultiTask('ftp_push', 'Transfer files using FTP.', function() {
+    var errorlog = function(files) {
+      grunt.log.writeln('this.files:', typeof files);
+      grunt.log.writeln(JSON.stringify(files, null, 4));
+    };
+
+    //if - get command line arguments == true
+    //this.files = call helper function from srcHandle
+    errorlog(this.files);
+
+    if (grunt.option('src')) {
+      var name = grunt.option('src');
+
+      this.files = utils.srcHandle(name);
+    }
+    errorlog(this.files);
+
+
+
 
     var destinations,
         files,

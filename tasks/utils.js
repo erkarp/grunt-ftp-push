@@ -2,6 +2,23 @@ var path = require('path');
 
 var utils = {
   /**
+  * @description Return a simple files object with cwd '.' and specified src
+  * @param {string} the string passed to argument src via grunt's cli
+  * @return {object} files object with cwd '.' and the src passed as param
+  */
+  srcHandle: function (name) {
+    return [{
+       src: [ name ],
+       dest: [ name ],
+       orig: {
+            "expand": true,
+            "cwd": ".",
+            "src": [ name ]
+          }
+      }];
+  },
+
+  /**
   * @description Check if the user has provided the required options
   * @param {object} options - An options object should have two required options
   * @return {bool} bool representing if the provided options are valid
