@@ -121,14 +121,17 @@ module.exports = function (grunt) {
       grunt.log.writeln(JSON.stringify(files, null, 4));
     };
 
-    //if - get command line arguments == true
-    //this.files = call helper function from srcHandle
+    //if - cli arg 'src' exists, also check cwd and
+    //this.files = call helper function to reset this.files
     errorlog(this.files);
 
     if (grunt.option('src')) {
-      var name = grunt.option('src');
+      var src = grunt.option('src'),
+          cwdArg = grunt.option('cwd');
 
-      this.files = utils.srcHandle(name);
+      var cwd = cwdArg === 'orig' ? this.files[0].orig.cwd : cwdArg || '.';
+
+      this.files = utils.srcHandle(src, cwd);
     }
     errorlog(this.files);
 

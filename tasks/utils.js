@@ -6,14 +6,14 @@ var utils = {
   * @param {string} the string passed to argument src via grunt's cli
   * @return {object} files object with cwd '.' and the src passed as param
   */
-  srcHandle: function (name) {
+  srcHandle: function (src, cwd) {
     return [{
-       src: [ name ],
-       dest: [ name ],
+       src: [ src ],
+       dest: [ src ],
        orig: {
             "expand": true,
-            "cwd": ".",
-            "src": [ name ]
+            "cwd": cwd,
+            "src": [ src ]
           }
       }];
   },
